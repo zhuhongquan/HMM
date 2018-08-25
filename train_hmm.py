@@ -7,14 +7,17 @@ def data_process(data_file):
     data_file = open(data_file, "r", encoding="utf-8")
     data_list = []
     sentence = []
-    for row in data_file.readlines():
-        if row == "\n":
+    while True:
+        line = data_file.readline()
+        if not line:
+            break
+        if line != '\n':
+            word = line.split()[1]
+            tag = line.split()[3]
+            sentence.append((word, tag))
+        else:
             data_list.append(sentence)
             sentence = []
-        else:
-            word = re.findall(r'^\d+\s(.+?)\s_\s', row)
-            tag = re.findall(r'_\s([A-Z]+?)\s_\s_\s\d+', row)
-            sentence.append((word[0], tag[0]))
     data_file.close()
     return data_list
 
@@ -70,7 +73,7 @@ def creat_matrix(train_data):  # train_data存放所有的训练句子，[[(戴�
 
 
 def main():
-    train_data = data_process('data/train.conll')
+    train_data = data_process('big-data/train.conll')
     transition_matrix, emission_matrix = creat_matrix(train_data)
     np.savetxt("transition_matrix.txt", transition_matrix)
     np.savetxt("emission_matrix.txt", emission_matrix)
