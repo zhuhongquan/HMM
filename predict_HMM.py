@@ -3,6 +3,7 @@ import datetime
 from train_HMM import data_process
 
 # 读入分词和词性编号文件
+print("正在读取参数文件...", end='')
 word_dict_file = open("word.dict", "r", encoding="utf-8")
 s1 = word_dict_file.read()
 word_dict = eval(s1)
@@ -17,6 +18,7 @@ emission_matrix = np.loadtxt("emission_matrix.txt")
 # 转换成对数
 emission_matrix = np.log(emission_matrix)
 transition_matrix = np.log(transition_matrix)
+print("参数文件读取完毕")
 
 
 def viterbi(word_list):

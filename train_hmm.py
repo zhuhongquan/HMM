@@ -1,5 +1,4 @@
 import numpy as np
-import re
 
 
 # 对人工分词文件进行处理，提取出词和对应的词性[[(戴相龙,NR),(word,tag),(,)....],[],[]....]
@@ -73,7 +72,7 @@ def creat_matrix(train_data):  # train_data存放所有的训练句子，[[(戴�
 
 
 def main():
-    train_data = data_process('big-data/train.conll')
+    train_data = data_process('data/train.conll')
     transition_matrix, emission_matrix = creat_matrix(train_data)
     np.savetxt("transition_matrix.txt", transition_matrix)
     np.savetxt("emission_matrix.txt", emission_matrix)
